@@ -1,0 +1,14 @@
+---
+applications:
+- name: cpea_monthly_usage
+  instances: 1  
+  memory: 512MB
+  host: cpea_monthly_usage
+  buildpack: https://github.com/cloudfoundry/go-buildpack.git  
+  env:    
+    Alert : <Alert_config>
+    Time : <Time_In_Minutes>
+    Event: <Event_type>
+    Services: <Services_Threshold>
+    Uas: <UAS_Services>
+    SubaccountMode: <true or false>
