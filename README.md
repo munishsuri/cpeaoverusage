@@ -19,7 +19,7 @@ cpeacreditsover
 ```
 
 
-`Destination Conifg`
+`Destination Config`
 
 ```
 {
