@@ -27,7 +27,7 @@ func Test_getUASResponse_Pass(t *testing.T) {
 	assert.Equal(t, response, model.UASMonthlyUsageResponse{})
 
 	// setting the env back
-	os.Setenv(env.ALERT_NOTIFICATION_ENV_NAME, envOriginal)
+	os.Setenv(env.UAS_ENV_NAME, envOriginal)
 
 }
 
@@ -53,7 +53,7 @@ func Test_getUASResponse_Fail_Bad_response(t *testing.T) {
 	assert.Equal(t, fakePrintln.Args[0], "Error Occurred While Parsing Response")
 
 	// setting the env back
-	os.Setenv(env.ALERT_NOTIFICATION_ENV_NAME, envOriginal)
+	os.Setenv(env.UAS_ENV_NAME, envOriginal)
 	Chan = env.EndChan
 	Println = fmt.Println
 
@@ -81,7 +81,7 @@ func Test_getUASResponse_Fail_Bad_response_UAS(t *testing.T) {
 	assert.Equal(t, fakePrintln.Args[0], "Error Occurred While Getting UAS Response")
 
 	// setting the env back
-	os.Setenv(env.ALERT_NOTIFICATION_ENV_NAME, envOriginal)
+	os.Setenv(env.UAS_ENV_NAME, envOriginal)
 	Chan = env.EndChan
 	Println = fmt.Println
 

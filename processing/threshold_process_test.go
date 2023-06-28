@@ -44,7 +44,7 @@ func Test_getThresholdResponse_true(t *testing.T) {
 	assert.Equal(t, threshold[[3]string{"html-repo", "mb_storage", "app-host"}].Value, 15)
 
 	// setting the env back
-	os.Setenv(env.ALERT_NOTIFICATION_ENV_NAME, envOriginal)
+	os.Setenv(env.UAS_ENV_NAME, envOriginal)
 	EndChan = env.EndChan
 	os.Setenv(env.SERVICES_ENV_NAME, ser)
 
@@ -83,7 +83,7 @@ func Test_getThresholdResponse_fail(t *testing.T) {
 	assert.Equal(t, threshold[[3]string{"html-repo", "mb_storage", "app-host"}].PassedThrehold, false)
 
 	// setting the env back
-	os.Setenv(env.ALERT_NOTIFICATION_ENV_NAME, envOriginal)
+	os.Setenv(env.UAS_ENV_NAME, envOriginal)
 	EndChan = env.EndChan
 	os.Setenv(env.SERVICES_ENV_NAME, ser)
 
@@ -123,7 +123,7 @@ func Test_getThresholdResponseWithsubaccount_fail(t *testing.T) {
 	assert.Equal(t, threshold[[4]string{"html-repo", "mb_storage", "app-host", "s1"}].PassedThrehold, false)
 
 	// setting the env back
-	os.Setenv(env.ALERT_NOTIFICATION_ENV_NAME, envOriginal)
+	os.Setenv(env.UAS_ENV_NAME, envOriginal)
 	EndChan = env.EndChan
 	os.Setenv(env.SERVICES_ENV_NAME, ser)
 
@@ -164,7 +164,7 @@ func Test_getThresholdResponseWithsubaccount_pass(t *testing.T) {
 	assert.Equal(t, threshold[[4]string{"html-repo", "mb_storage", "app-host", "s1"}].Value, 10)
 
 	// setting the env back
-	os.Setenv(env.ALERT_NOTIFICATION_ENV_NAME, envOriginal)
+	os.Setenv(env.UAS_ENV_NAME, envOriginal)
 	EndChan = env.EndChan
 	os.Setenv(env.SERVICES_ENV_NAME, ser)
 

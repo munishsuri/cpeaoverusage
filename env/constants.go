@@ -5,12 +5,12 @@ import "cpea_monthly_usage/model"
 var EndChan = make(chan int)
 
 const (
-	SERVICES_ENV_NAME           = "Services"
-	TIME_ENV_NAME               = "Time"
-	UAS_ENV_NAME                = "Uas"
-	ALERT_NOTIFICATION_ENV_NAME = "Alert"
-	Event_TYPE_ENV_NAME         = "Event"
-	MODE_SUBACCOUNT_ENV_NAME    = "SubaccountMode"
+	SERVICES_ENV_NAME        = "Services"
+	TIME_ENV_NAME            = "Time"
+	UAS_ENV_NAME             = "Uas"
+	Event_TYPE_ENV_NAME      = "Event"
+	MODE_SUBACCOUNT_ENV_NAME = "SubaccountMode"
+	Dest_ENV_NAME            = "Destination"
 )
 
 // Service_ID , MEASURE_ID
@@ -44,5 +44,6 @@ var Services_Value_Map_Constants = map[string][]model.ServiceMetrics{
 const (
 	Time_Constant  = 5
 	EventName      = "cpeacreditsover"
+	DestConfigURL  = "/destination-configuration/v1/destinations/"
 	SubaccountMode = false
 )

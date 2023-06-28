@@ -46,19 +46,18 @@ func GetUASConfigValue() (model.UASConfig, error) {
 
 	}
 
-	return config, errors.New("error getting rule values")
+	return config, errors.New("error getting uas values")
 
 }
 
-// get Alert Config
+// get Dest config
+func GetDestConfigValue() (model.DestConfig, error) {
 
-func GetAlertConfig() (model.AlertNotificationConfig, error) {
+	destConfig := os.Getenv(Dest_ENV_NAME)
+	var config model.DestConfig
+	if destConfig != "" {
 
-	alertConfig := os.Getenv(ALERT_NOTIFICATION_ENV_NAME)
-	var config model.AlertNotificationConfig
-	if alertConfig != "" {
-
-		err := json.Unmarshal([]byte(alertConfig), &config)
+		err := json.Unmarshal([]byte(destConfig), &config)
 
 		if err == nil {
 			return config, nil
@@ -66,7 +65,7 @@ func GetAlertConfig() (model.AlertNotificationConfig, error) {
 
 	}
 
-	return config, errors.New("error getting rule values")
+	return config, errors.New("error getting destination env values")
 
 }
 

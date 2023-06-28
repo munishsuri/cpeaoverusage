@@ -116,55 +116,6 @@ func Test_GetUASConfigValue_Pass(t *testing.T) {
 
 }
 
-func Test_GetAlertConfig_error(t *testing.T) {
-
-	envOrg := os.Getenv(ALERT_NOTIFICATION_ENV_NAME)
-	os.Setenv(ALERT_NOTIFICATION_ENV_NAME, "")
-
-	envval, err := GetAlertConfig()
-
-	assert.NotEqual(t, err, nil)
-	assert.Equal(t, model.AlertNotificationConfig{}, envval)
-
-	os.Setenv(ALERT_NOTIFICATION_ENV_NAME, envOrg)
-
-}
-
-func Test_GetAlertConfig_JSON_error(t *testing.T) {
-
-	envOrg := os.Getenv(ALERT_NOTIFICATION_ENV_NAME)
-	os.Setenv(ALERT_NOTIFICATION_ENV_NAME, "fail")
-
-	envval, err := GetAlertConfig()
-
-	assert.NotEqual(t, err, nil)
-	assert.Equal(t, model.AlertNotificationConfig{}, envval)
-
-	os.Setenv(ALERT_NOTIFICATION_ENV_NAME, envOrg)
-
-}
-
-func Test_GetAlertConfig_Pass(t *testing.T) {
-
-	envOrg := os.Getenv(ALERT_NOTIFICATION_ENV_NAME)
-	os.Setenv(ALERT_NOTIFICATION_ENV_NAME, `
-	{"Url":"url",
-	"Client_id":"id",
-	"Client_Secret":"secret"}`)
-
-	envval, err := GetAlertConfig()
-
-	assert.Equal(t, err, nil)
-	assert.Equal(t, model.AlertNotificationConfig{
-		Url:           "url",
-		Client_Id:     "id",
-		Client_Secret: "secret",
-	}, envval)
-
-	os.Setenv(ALERT_NOTIFICATION_ENV_NAME, envOrg)
-
-}
-
 func Test_GetTimeInMinutes_Pass(t *testing.T) {
 	envOrg := os.Getenv(TIME_ENV_NAME)
 
@@ -257,5 +208,32 @@ func Test_GetSubaccountMode_true(t *testing.T) {
 	assert.Equal(t, event, true)
 
 	os.Setenv(MODE_SUBACCOUNT_ENV_NAME, envOrg)
+
+}
+
+func Test_GetDestConfigValue_true(t *testing.T) {
+
+	envOrg := os.Getenv(Dest_ENV_NAME)
+
+	os.Setenv(Dest_ENV_NAME, `
+	{
+		"Client_Id":"id",
+		"Client_Secret":"secret",
+		"Token_Url":"token",
+		"Url":"url",
+		"DestName":"destination"
+	}`)
+
+	destConfig, _ := GetDestConfigValue()
+
+	assert.Equal(t, destConfig, model.DestConfig{
+		Token_Url:     "token",
+		Client_Id:     "id",
+		Client_Secret: "secret",
+		URL:           "url",
+		DestName:      "destination",
+	})
+
+	os.Setenv(Dest_ENV_NAME, envOrg)
 
 }

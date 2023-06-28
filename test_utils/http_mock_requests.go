@@ -47,19 +47,38 @@ func InitOAuth() {
 }
 
 func InitAlertNotifictaion() {
+	httpmock.RegisterResponder("POST", "url/oauth/token",
+		func(req *http.Request) (*http.Response, error) {
+			return httpmock.NewStringResponse(200, `{"access_token":"token"}`), nil
 
-	httpmock.RegisterResponder("POST", "url/cf/producer/v1/resource-events",
+		})
+	httpmock.RegisterResponder("GET", "url/destination-configuration/v1/destinations/dest",
+		func(req *http.Request) (*http.Response, error) {
+			body, _ := json.Marshal(model.Destination{
+				DestinationConfiguration: model.DestinationConfiguration{
+					URL: "testurldest",
+				},
+				AuthTokens: []model.DestHttpHeader{
+					model.DestHttpHeader{
+						HTTPHeader: struct {
+							Key   string "json:\"key\""
+							Value string "json:\"value\""
+						}{},
+					},
+				},
+			})
+			return httpmock.NewBytesResponse(200, body), nil
+
+		})
+	httpmock.RegisterResponder("POST", "testurldest",
 		func(req *http.Request) (*http.Response, error) {
 			b, _ := ioutil.ReadAll(req.Body)
-			bodyAlert := model.AlertNotificationBody{}
-
-			json.Unmarshal(b, &bodyAlert)
-
-			if bodyAlert.Body == "exceededFail" {
-
-				return httpmock.NewBytesResponse(400, b), errors.New("error")
+			var alertBody model.AlertNotificationBody
+			json.Unmarshal(b, &alertBody)
+			if alertBody.Body == "exceededFail" {
+				return httpmock.NewStringResponse(400, string(b)), errors.New("Fail")
 			}
-			return httpmock.NewBytesResponse(200, b), nil
+			return httpmock.NewStringResponse(200, string(b)), nil
 
 		})
 }

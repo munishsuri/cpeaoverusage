@@ -6,7 +6,7 @@ applications:
   host: cpea_monthly_usage
   buildpack: https://github.com/cloudfoundry/go-buildpack.git  
   env:    
-    Alert : <Alert_config>
+    Destination: <DestinationCOnifg>
     Time : <Time_In_Minutes>
     Event: <Event_type>
     Services: <Services_Threshold>

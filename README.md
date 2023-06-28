@@ -18,13 +18,16 @@ go tool cover -html=cover.out
 cpeacreditsover
 ```
 
-`Alert Notification Credential Service`
+
+`Destination Conifg`
+
 ```
 {
-    "Url":"<url_of_service>",
     "Client_Id":"<client_id>",
     "Client_Secret":"<client_secret>",
-    
+    "Token_Url":"<token_url>",
+    "Url":"<url>",
+    "DestName":"<destination_name"
 }
 ```
 
